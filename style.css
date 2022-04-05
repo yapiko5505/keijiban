@@ -117,6 +117,7 @@ label {
     font-size: 86%;
 }
 input[type="text"],
+input[type="password"],
 textarea {
 	margin-bottom: 20px;
 	padding: 10px;
@@ -125,7 +126,8 @@ textarea {
     border-radius: 3px;
     background: #fff;
 }
-input[type="text"] {
+input[type="text"],
+input[type="password"] {
 	width: 200px;
 }
 textarea {
