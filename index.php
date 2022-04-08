@@ -53,7 +53,13 @@
         // メッセージの入力チェック
         if(empty($message)){
             $error_message[]='ひと言メッセージを入力してください。';
-        } 
+        } else {
+
+            // 文字数を確認
+            if(100<mb_strlen($message, 'UTF-8')) {
+                $error_message[] = 'ひと言メッセージは100文字以内で入力してください。';
+            }
+        }
 
         if(empty($error_message)){
 
@@ -85,13 +91,16 @@
 
 
             if($res){
-                $success_message='メッセージを書き込みました。';
+                $_SESSION['success_message']='メッセージを書き込みました。';
             } else{
                 $error_message[]='書き込みに失敗しました。';
             }
 
             // プリペアードステートメントを削除
             $stmt=null;
+
+            header('Location: ./');
+            exit;
             
         }
     }
@@ -117,8 +126,9 @@
 </head>
 <body>
 <h1>ひと言掲示板</h1>
-<?php if(!empty($success_message)): ?>
-    <p class="success_message"><?php echo $success_message; ?></p>
+<?php if(empty($_POST['btn_submit']) && !empty($_SESSION['success_message'])): ?>
+    <p class="success_message"><?php echo htmlspecialchars($_SESSION['success_message'], ENT_QUOTES, 'UTF-8'); ?></p>
+        <?php unset($_SESSION['success_message']); ?>
 <?php endif; ?>
 <?php if(!empty($error_message)): ?>
     <ul class="error_message">
@@ -135,7 +145,9 @@
     </div>
     <div>
         <label for="message">ひと言メッセージ</label>
-        <textarea id="message" name="message"></textarea>
+        <textarea id="message" name="message">
+            <?php if(!empty($message)){echo htmlspecialchars($message, ENT_QUOTES, 'UTF-8');} ?>
+        </textarea>
     </div>
     <input type="submit" name="btn_submit" value="書き込む">
 </form>

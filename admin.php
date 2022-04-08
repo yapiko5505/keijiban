@@ -24,6 +24,10 @@
 
     session_start();
 
+    if(!empty($_GET['btn_logout'])){
+        unset($_SESSION['admin_login']);
+    }
+
     // データベースに接続
     try{
 
@@ -106,6 +110,10 @@
     </article>
     <?php } ?>
     <?php } ?>
+
+    <form method="get" action="">
+        <input type="submit" name="btn_logout" value="ログアウト">
+    </form>
     <?php else: ?>
 
     <!-- ログインフォーム -->
