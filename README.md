@@ -1,5 +1,6 @@
 # keijiban
-# 使用言語 HTML/CSS、PHP
+# 使用言語、データベース
+HTML/CSS、PHP、MySQL
 
 掲示板ページ、管理ページ、ログインページを制作しました。
 
